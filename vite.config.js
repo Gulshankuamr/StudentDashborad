@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   // If deployed in root domain, base can stay "/"
   // If deployed in subfolder, use "./"
-  base: "./",
+  base: "/",
 
   server: {
     host: "::", // allows access from local network
