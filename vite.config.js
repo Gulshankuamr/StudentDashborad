@@ -4,8 +4,12 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // If deployed in root domain, base can stay "/"
+  // If deployed in subfolder, use "./"
+  base: "./",
+
   server: {
-    host: "::",
+    host: "::", // allows access from local network
     port: 3000,
   },
   plugins: [react()],
@@ -13,5 +17,9 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    outDir: "dist", // default output dir for Vite
+    emptyOutDir: true, // clean old builds
   },
 });
