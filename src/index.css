@@ -8,75 +8,122 @@
  * All colors in HSL format
  */
 
+/* ─── Root theme variables ───────────────────────── */
 @layer base {
   :root {
     /* Background & Surfaces */
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
-    
+
     /* Cards & Elevated Surfaces */
     --card: 222 47% 14%;
     --card-foreground: 210 40% 98%;
-    
+
     /* Sidebar */
     --sidebar: 222 47% 8%;
     --sidebar-foreground: 215 20% 65%;
     --sidebar-hover: 222 47% 18%;
     --sidebar-active: 217 91% 60%;
-    
+
     /* Primary - Blue accent */
     --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
-    
+
     /* Secondary */
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    
+
     /* Muted */
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 55%;
-    
+
     /* Accent */
     --accent: 217 91% 60%;
     --accent-foreground: 210 40% 98%;
-    
+
     /* Destructive - Red for errors/logout */
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    
+
     /* Success - Green */
     --success: 142 76% 36%;
     --success-foreground: 210 40% 98%;
-    
+
     /* Warning - Orange */
     --warning: 38 92% 50%;
     --warning-foreground: 222 47% 11%;
-    
+
     /* Borders & Inputs */
     --border: 217 33% 20%;
     --input: 217 33% 17%;
     --ring: 217 91% 60%;
-    
+
     --radius: 0.5rem;
-    
+
     /* Popover */
     --popover: 222 47% 14%;
     --popover-foreground: 210 40% 98%;
   }
 }
 
+/* ─── Base styles ───────────────────────── */
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
 
-/* Custom scrollbar for dark theme */
+/* ─── Custom Utilities ───────────────────────── */
+@layer utilities {
+  /* Borders */
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+  .border-input {
+    border-color: hsl(var(--input));
+  }
+
+  /* Backgrounds */
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+  .bg-card {
+    background-color: hsl(var(--card));
+  }
+  .bg-sidebar {
+    background-color: hsl(var(--sidebar));
+  }
+
+  /* Text */
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+  .text-card-foreground {
+    color: hsl(var(--card-foreground));
+  }
+  .text-sidebar-foreground {
+    color: hsl(var(--sidebar-foreground));
+  }
+
+  /* Radius */
+  .rounded-radius {
+    border-radius: var(--radius);
+  }
+
+  /* Accent colors */
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+  .text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+  }
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+}
+
+/* ─── Custom Scrollbar ───────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
