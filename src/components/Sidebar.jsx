@@ -1,9 +1,14 @@
 // src/components/Sidebar.jsx
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { ChevronDown, GraduationCap, Menu } from 'lucide-react'
+import { ChevronDown, Menu } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import { adminMenuItems, studentMenuItems } from '../config/sidebarConfig'
+import { getMenuByRole } from '../config/sidebarConfig'
+
+// ── Import your logo ──────────────────────────────────────────
+// Put your logo file at: src/assets/logo.png  (or .svg / .webp)
+// Then import it here:
+
 
 const Sidebar = () => {
   const { user } = useAuth()
@@ -11,9 +16,7 @@ const Sidebar = () => {
   const [openDropdowns, setOpenDropdowns] = useState({})
   const [collapsed, setCollapsed] = useState(false)
 
-  const menuItems =
-    user?.role === 'admin'   ? adminMenuItems   :
-    user?.role === 'student' ? studentMenuItems : []
+  const menuItems = getMenuByRole(user?.role)
 
   const panelLabel =
     user?.role === 'admin'   ? 'Admin Panel'   :
@@ -32,33 +35,43 @@ const Sidebar = () => {
     <div
       className={`${
         collapsed ? 'w-[72px]' : 'w-64'
-      } bg-white border-r border-gray-100 min-h-screen flex flex-col transition-all duration-300 ease-in-out shadow-sm`}
+      } sticky top-0 h-screen bg-white border-r border-gray-100 flex flex-col transition-all duration-300 ease-in-out shadow-sm`}
     >
-      {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-[18px] border-b border-gray-100 flex-shrink-0">
-        <div className="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center flex-shrink-0">
-          <GraduationCap className="text-white w-5 h-5" />
-        </div>
+      {/* ── Header ──────────────────────────────────────────── */}
+      <div className={`flex items-center px-4 py-4 border-b border-gray-100 flex-shrink-0 ${collapsed ? 'justify-center' : 'gap-3'}`}>
+
+        {/* Logo image */}
+        {/* <img
+          src="/logoconnectskool.png"
+          alt="ConnectSkool Logo"
+          className="w-14 h-14 object-contain flex-shrink-0"
+        /> */}
+
+        {/* Brand text */}
         {!collapsed && (
-          <div className="overflow-hidden flex-1">
-            <p className="font-bold text-gray-800 text-sm leading-tight whitespace-nowrap">
-              SchoolPro
-            </p>
-            <p className="text-xs text-gray-400 whitespace-nowrap">{panelLabel}</p>
+          <div className="flex-1 min-w-0 flex flex-col leading-tight">
+            <span className="text-sm font-extrabold text-gray-800 tracking-wide truncate">
+              Connect<span className="text-violet-600">Skool</span>
+            </span>
+            <span className="text-[10px] text-gray-400 font-medium truncate">
+              {panelLabel}
+            </span>
           </div>
         )}
+
+        {/* Collapse toggle */}
         <button
           onClick={() => {
             if (!collapsed) setOpenDropdowns({})
             setCollapsed((p) => !p)
           }}
-          className={`${collapsed ? 'mx-auto' : 'ml-auto'} w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors flex-shrink-0`}
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition flex-shrink-0"
         >
           <Menu className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Nav */}
+      {/* ── Nav ─────────────────────────────────────────────── */}
       <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
         {menuItems.map((item) => {
           const Icon = item.icon

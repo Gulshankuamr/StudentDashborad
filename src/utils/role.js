@@ -35,7 +35,7 @@ export const normalizeRole = (role) => {
     .replace(/\s+/g, '')
     .replace(/-/g, '_')
 
-  return ROLE_MAP[key] || 'student'
+  return ROLE_MAP[key] || 'unknown'
 }
 
 export const getRoleFromToken = (token) => {

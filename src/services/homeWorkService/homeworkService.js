@@ -4,13 +4,24 @@ import { API_BASE_URL, getAuthToken } from '../api'
 export const homeworkService = {
 
   // ── GET STUDENT HOMEWORK ─────────────────────────────────────
-  // GET /api/student/getStudentHomeworkSubjectWise
+  // GET /api/student/getStudentHomeworkSubjectWise?student_id=278&class_id=142&section_id=205
   getStudentHomework: async () => {
     const token = getAuthToken()
     if (!token) throw new Error('Token missing')
 
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}')
+    if (!user?.student_id) throw new Error('student_id missing from session')
+    if (!user?.class_id) throw new Error('class_id missing from session')
+    if (!user?.section_id) throw new Error('section_id missing from session')
+
+    const qs = new URLSearchParams({
+      student_id: user.student_id,
+      class_id: user.class_id,
+      section_id: user.section_id,
+    }).toString()
+
     const response = await fetch(
-      `${API_BASE_URL}/student/getStudentHomeworkSubjectWise`,
+      `${API_BASE_URL}/student/getStudentHomeworkSubjectWise?${qs}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },

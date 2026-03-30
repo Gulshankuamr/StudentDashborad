@@ -38,9 +38,25 @@ export const AuthProvider = ({ children }) => {
 
   // ── login({ token, user }) ─────────────────────────────────────────────────
   const login = useCallback(({ token, user }) => {
+    if (!token || !user) {
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('user')
+      setAuth({ token: null, user: null })
+      return
+    }
+
     const normalized = { ...user, role: normalizeRole(user?.role) }
+
+    // Extra safety: block any user that is not student
+    if (normalized.role !== 'student') {
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('user')
+      setAuth({ token: null, user: null })
+      return
+    }
+
     sessionStorage.setItem('token', token)
-    sessionStorage.setItem('user',  JSON.stringify(normalized))
+    sessionStorage.setItem('user', JSON.stringify(normalized))
     setAuth({ token, user: normalized })
   }, [])
 

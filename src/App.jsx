@@ -12,7 +12,7 @@ import Unauthorized from './pages/Unauthorized'
 // import ProfilePage  from './pages/ProfilePage'
 
 // Dashboards
-import AdminDashboard   from './pages/admin/AdminDashboard'
+
 import StudentDashboard from './pages/student/StudentDashboard'
 
 // Shared
@@ -25,6 +25,14 @@ import StudentProfileDetail from './pages/student/StudentProfileDetail'
 import StudentHomeworkList   from './pages/StudentHomeWork/StudentHomeworkList'
 import StudentSubmitHomework from './pages/StudentHomeWork/StudentSubmitHomework'
 import StudentViewSubmission from './pages/StudentHomeWork/StudentViewSubmission'
+
+
+
+import StudentAttendance from './pages/studentattendance/StudentAttendance'
+
+
+import StudentFees from './pages/StudentFees/StudentFees'
+
 
 function App() {
   return (
@@ -68,19 +76,14 @@ function App() {
                   <NotificationsPage />
                 </ProtectedRoute>
               }
+
+
             />
             <Route path="/admin/notifications"   element={<Navigate to="/notifications" replace />} />
             <Route path="/student/notifications" element={<Navigate to="/notifications" replace />} />
 
             {/* ── Admin ─────────────────────────────────────────── */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
+         
 
             {/* ── Student ───────────────────────────────────────── */}
             <Route
@@ -111,6 +114,27 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+
+            <Route
+  path="/student/attendance"
+  element={
+    <ProtectedRoute allowedRoles={['student']}>
+      <StudentAttendance />
+    </ProtectedRoute>
+  }
+/>
+
+
+<Route
+  path="/student/fees"
+  element={
+    <ProtectedRoute allowedRoles={['student']}>
+      <StudentFees />
+    </ProtectedRoute>
+  }
+/>
+
             <Route
               path="/student/homework/submit/:id"
               element={

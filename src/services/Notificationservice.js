@@ -62,10 +62,19 @@ export const getMyNotifications = ({ page = 1, limit = 50 } = {}) => {
   const role = getRole()
   const endpoint = URLS[role].getNotifications
 
-  const qs = new URLSearchParams({
+  const user = JSON.parse(sessionStorage.getItem('user') || '{}')
+
+  const params = {
     page: String(page),
     limit: String(limit),
-  }).toString()
+  }
+
+  // Add student_id only for student role
+  if (role === 'student' && user?.student_id) {
+    params.student_id = user.student_id
+  }
+
+  const qs = new URLSearchParams(params).toString()
 
   return fetchJson(`${endpoint}?${qs}`, { method: 'GET' })
 }

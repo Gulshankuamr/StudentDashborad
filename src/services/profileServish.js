@@ -25,15 +25,18 @@ export const profileService = {
 
   // ════════════════════════════════
   // GET STUDENT DETAILS (student side)
-  // GET /api/student/getStudentDetailsByIdStudentSide
+  // GET /api/student/getStudentDetailsByIdStudentSide?student_id=278
   // Response: { success, message, data: { student_id, name, dob, ... } }
   // ════════════════════════════════
   getStudentDetails: async () => {
     const token = getAuthToken()
     if (!token) throw new Error('Token missing')
 
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}')
+    if (!user?.student_id) throw new Error('student_id missing from session')
+
     const response = await fetch(
-      `${API_BASE_URL}/student/getStudentDetailsByIdStudentSide`,
+      `${API_BASE_URL}/student/getStudentDetailsByIdStudentSide?student_id=${user.student_id}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },

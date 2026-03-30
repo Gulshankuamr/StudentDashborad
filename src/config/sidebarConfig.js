@@ -15,7 +15,8 @@ import {
   BookMarked,
   UserCircle2,
   BookCheck,
-  IdCard,          // ← My Profile icon
+  ClipboardList,
+  IdCard,
 } from 'lucide-react'
 
 // ─── ADMIN MENU ───────────────────────────────────────────────
@@ -144,7 +145,10 @@ export const adminMenuItems = [
 ]
 
 // ─── STUDENT MENU ─────────────────────────────────────────────
+// Order: Dashboard → Profile → Academics → Finance → Misc
 export const studentMenuItems = [
+
+  // ── 1. Home ───────────────────────────────────────────────
   {
     id: 'dashboard',
     label: 'Dashboard',
@@ -152,11 +156,22 @@ export const studentMenuItems = [
     path: '/student/dashboard',
     hasDropdown: false,
   },
+
+  // ── 2. Profile ────────────────────────────────────────────
   {
-    id: 'my-profile',           // ← NEW — full student detail page
+    id: 'my-profile',
     label: 'My Profile',
     icon: IdCard,
     path: '/student/profile',
+    hasDropdown: false,
+  },
+
+  // ── 3. Academics ──────────────────────────────────────────
+  {
+    id: 'subjects',
+    label: 'My Subjects',
+    icon: BookMarked,
+    path: '/student/subjects',
     hasDropdown: false,
   },
   {
@@ -174,24 +189,10 @@ export const studentMenuItems = [
     hasDropdown: false,
   },
   {
-    id: 'subjects',
-    label: 'My Subjects',
-    icon: BookMarked,
-    path: '/student/subjects',
-    hasDropdown: false,
-  },
-  {
     id: 'exams',
     label: 'Exams',
-    icon: FileText,
+    icon: ClipboardList,
     path: '/student/exams',
-    hasDropdown: false,
-  },
-  {
-    id: 'fees',
-    label: 'My Fees',
-    icon: DollarSign,
-    path: '/student/fees',
     hasDropdown: false,
   },
   {
@@ -201,18 +202,31 @@ export const studentMenuItems = [
     path: '/student/results',
     hasDropdown: false,
   },
+
+  // ── 4. Finance ────────────────────────────────────────────
   {
-    id: 'notifications',
+    id: 'fees',
+    label: 'My Fees',
+    icon: DollarSign,
+    path: '/student/fees',
+    hasDropdown: false,
+  },
+
+  // ── 5. Misc ───────────────────────────────────────────────
+  {
+    id: 'notifications',                   
     label: 'Notifications',
     icon: Bell,
     path: '/notifications',
     hasDropdown: false,
   },
-  {
-    id: 'profile',
-    label: 'Account Settings',
-    icon: UserCircle2,
-    path: '/profile',
-    hasDropdown: false,
-  },
 ]
+
+// ─── Helper ───────────────────────────────────────────────────
+export const getMenuByRole = (role) => {
+  switch (role) {
+    case 'admin':   return adminMenuItems
+    case 'student': return studentMenuItems
+    default:        return []
+  }
+}

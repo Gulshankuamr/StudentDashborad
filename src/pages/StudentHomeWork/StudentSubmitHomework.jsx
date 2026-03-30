@@ -187,10 +187,10 @@ export default function StudentSubmitHomework() {
   const isLate  = homework?.status === 'overdue'
 
   return (
-    <div className="flex min-h-screen bg-gray-50" style={{ fontFamily: "'DM Sans','Nunito',sans-serif" }}>
+    <div className="flex h-screen overflow-hidden bg-gray-50" style={{ fontFamily: "'DM Sans','Nunito',sans-serif" }}>
       <Sidebar />
 
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col">
         <Navbar />
 
         <main className="flex-1 overflow-y-auto" style={{ padding: '28px 32px' }}>
