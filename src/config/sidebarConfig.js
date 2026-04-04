@@ -167,13 +167,13 @@ export const studentMenuItems = [
   },
 
   // ── 3. Academics ──────────────────────────────────────────
-  {
-    id: 'subjects',
-    label: 'My Subjects',
-    icon: BookMarked,
-    path: '/student/subjects',
-    hasDropdown: false,
-  },
+  // {
+  //   id: 'subjects',
+  //   label: 'My Subjects',
+  //   icon: BookMarked,
+  //   path: '/student/subjects',
+  //   hasDropdown: false,
+  // },
   {
     id: 'homework',
     label: 'Homework',
@@ -188,20 +188,20 @@ export const studentMenuItems = [
     path: '/student/attendance',
     hasDropdown: false,
   },
-  {
-    id: 'exams',
-    label: 'Exams',
-    icon: ClipboardList,
-    path: '/student/exams',
-    hasDropdown: false,
-  },
-  {
-    id: 'results',
-    label: 'Results',
-    icon: GraduationCap,
-    path: '/student/results',
-    hasDropdown: false,
-  },
+  // {
+  //   id: 'exams',
+  //   label: 'Exams',
+  //   icon: ClipboardList,
+  //   path: '/student/exams',
+  //   hasDropdown: false,
+  // },
+  // {
+  //   id: 'results',
+  //   label: 'Results',
+  //   icon: GraduationCap,
+  //   path: '/student/results',
+  //   hasDropdown: false,
+  // },
 
   // ── 4. Finance ────────────────────────────────────────────
   {
