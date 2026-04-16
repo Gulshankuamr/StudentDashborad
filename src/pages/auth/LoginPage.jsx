@@ -5,16 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { loginUser } from '../../services/authService'
 import { useAuth } from '../../context/AuthContext'
 import { normalizeRole } from '../../utils/role'
+import { getDefaultRouteForRole } from '../../config/routeConfig'
 import {
   Eye, EyeOff, GraduationCap,
   CalendarCheck, Wallet, BarChart2, ClipboardList,
   Zap, ShieldCheck, Smartphone, LayoutGrid,
 } from 'lucide-react'
-
-const ROLE_ROUTES = {
-  admin:   '/admin/dashboard',
-  student: '/student/dashboard',
-}
 
 const LEFT_CARDS = [
   { icon: CalendarCheck, label: 'Track Attendance',   sub: 'Daily & monthly view'      },
@@ -65,7 +61,7 @@ export default function LoginPage() {
       if (res.success) {
         login(res.data)
         const role = normalizeRole(res.data.user?.role)
-        navigate(ROLE_ROUTES[role] || '/unauthorized', { replace: true })
+        navigate(getDefaultRouteForRole(role), { replace: true })
       } else {
         setError(res.message || 'Login failed. Please check your credentials.')
       }

@@ -3,9 +3,7 @@ import { API_BASE_URL, getAuthToken } from '../api'
 
 export const attendanceService = {
 
-  // ── GET STUDENT ATTENDANCE ───────────────────────────────────
-  // GET /api/student/getStudentAttendanceForStudentSide
-  // Auth: Bearer Token (auto from getAuthToken)
+ 
   getStudentAttendance: async () => {
     const token = getAuthToken()
     if (!token) throw new Error('Token missing')

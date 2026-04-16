@@ -1,8 +1,8 @@
 const ROLE_MAP = {
-  admin: 'admin',
-  schooladmin: 'admin',
-  school_admin: 'admin',
-  schooladministrator: 'admin',
+  admin: 'school_admin',
+  schooladmin: 'school_admin',
+  school_admin: 'school_admin',
+  schooladministrator: 'school_admin',
   student: 'student',
   teacher: 'teacher',
   accountant: 'accountant',
@@ -52,5 +52,4 @@ export const getStoredRole = () => {
   if (!token) return 'student'
   return getRoleFromToken(token)
 }
-
 

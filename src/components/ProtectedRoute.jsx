@@ -1,27 +1,26 @@
-// src/components/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { hasPermission } from '../utils/permission'
 
 const isTokenExpired = (token) => {
   if (!token) return true
+
   try {
     const payload = JSON.parse(atob(token.split('.')[1]))
-    if (!payload || typeof payload !== 'object') return true
-    if (!payload.exp) return true
+    if (!payload?.exp) return true
     return payload.exp * 1000 < Date.now()
   } catch {
     return true
   }
 }
 
-/**
- * allowedRoles = []         → any authenticated user
- * allowedRoles = ['admin']  → only admin
- */
-const ProtectedRoute = ({ children, allowedRoles = [] }) => {
+const ProtectedRoute = ({
+  children,
+  allowedRoles = [],
+  requiredPermission = null,
+}) => {
   const { isAuthenticated, user, token, logout, hydrated } = useAuth()
 
-  // Wait for sessionStorage read — prevents false redirect on first load
   if (!hydrated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -36,6 +35,10 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
   }
 
   if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
+    return <Navigate to="/unauthorized" replace />
+  }
+
+  if (!hasPermission(user?.permissions, requiredPermission)) {
     return <Navigate to="/unauthorized" replace />
   }
 

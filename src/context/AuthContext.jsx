@@ -8,6 +8,7 @@ import {
   useMemo,
 } from 'react'
 import { normalizeRole } from '../utils/role'
+import { normalizePermissions } from '../utils/permission'
 
 const AuthContext = createContext(null)
 
@@ -20,7 +21,11 @@ const initState = () => {
     const parsed = JSON.parse(raw)
     return {
       token,
-      user: { ...parsed, role: normalizeRole(parsed?.role) },
+      user: {
+        ...parsed,
+        role: normalizeRole(parsed?.role),
+        permissions: normalizePermissions(parsed?.permissions),
+      },
     }
   } catch {
     sessionStorage.removeItem('token')
@@ -45,14 +50,10 @@ export const AuthProvider = ({ children }) => {
       return
     }
 
-    const normalized = { ...user, role: normalizeRole(user?.role) }
-
-    // Extra safety: block any user that is not student
-    if (normalized.role !== 'student') {
-      sessionStorage.removeItem('token')
-      sessionStorage.removeItem('user')
-      setAuth({ token: null, user: null })
-      return
+    const normalized = {
+      ...user,
+      role: normalizeRole(user?.role),
+      permissions: normalizePermissions(user?.permissions),
     }
 
     sessionStorage.setItem('token', token)

@@ -14,6 +14,7 @@ const Navbar = () => {
     name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
 
   const roleLabel =
+    user?.role === 'school_admin' ? 'School Admin' :
     user?.role === 'admin'      ? 'School Admin' :
     user?.role === 'student'    ? 'Student'       :
     user?.role === 'teacher'    ? 'Teacher'       :

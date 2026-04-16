@@ -1,17 +1,10 @@
-// src/components/LoginRedirect.jsx
-// Guards the /login route — if already authenticated, redirect to dashboard
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-
-const ROLE_ROUTES = {
-  admin:   '/admin/dashboard',
-  student: '/student/dashboard',
-}
+import { getDefaultRouteForRole } from '../config/routeConfig'
 
 const LoginRedirect = ({ children }) => {
   const { isAuthenticated, user, hydrated } = useAuth()
 
-  // Wait for hydration before deciding
   if (!hydrated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -20,9 +13,8 @@ const LoginRedirect = ({ children }) => {
     )
   }
 
-  // Already logged in → send to their dashboard
   if (isAuthenticated && user?.role) {
-    return <Navigate to={ROLE_ROUTES[user.role] || '/unauthorized'} replace />
+    return <Navigate to={getDefaultRouteForRole(user.role)} replace />
   }
 
   return children
