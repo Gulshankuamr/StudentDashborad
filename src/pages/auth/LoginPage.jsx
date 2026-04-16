@@ -395,7 +395,7 @@ export default function LoginPage() {
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '1.3rem' }}>
                 <div style={{ flex: 1, height: 1, background: '#f3f4f6' }} />
-                <span style={{ fontSize: '0.68rem', color: '#d1d5db', whiteSpace: 'nowrap' }}>Powered by Sckool ERP</span>
+                <span style={{ fontSize: '0.68rem', color: '#d1d5db', whiteSpace: 'nowrap' }}>Powered by ConnectSkool-ERP</span>
                 <div style={{ flex: 1, height: 1, background: '#f3f4f6' }} />
               </div>
             </div>
